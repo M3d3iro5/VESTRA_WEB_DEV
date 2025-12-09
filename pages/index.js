@@ -6,7 +6,11 @@ function Home() {
                 mas eu quero que vc saiba que eu faço tudo isso pq eu quero um futuro melhor pra gente
                 e pq eu te amo muito e quero te dar todo o conforto do mundo
                 e quero que a gente tenha uma vida incrível juntos. EU TE AMO IMENSAEMNTE MEU AMOR 
-                parece pouca coisa mas não é trivial fazer um site kkkkkk
+                parece pouca coisa mas não é trivial fazer um site kkkkkk 
+
+                voce é minha melhor amiga, minha confidente, minha parceira, minha namorada, meu amor
+                e eu quero passar o resto da minha vida com vc. obrigada por tudo que vc faz por mim
+                e por ser essa pessoa incrível que vc é.
             </h1>
         </div>
     )
