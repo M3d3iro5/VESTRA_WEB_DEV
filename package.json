@@ -8,11 +8,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint:check": "prettier --check .",
+    "lint:fix": "prettier --write ."
   },
   "dependencies": {
     "next": "16.0.7",
     "react": "19.2",
     "react-dom": "19.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.4"
   }
 }
