@@ -778,7 +778,7 @@ export default function Home() {
             <ModuleCard
               icon={ArrowUpFromLine}
               title="Viga de Sustentação"
-              desc="Cálculo de cabeceiras e vigas principais para pontes rolantes."
+              desc="Cálculo de cabeceiras e vigas principais de sustentação."
               color="text-purple-400"
               bg="bg-purple-500/10"
               border="hover:border-purple-500/50"
@@ -794,7 +794,7 @@ export default function Home() {
             <ModuleCard
               icon={Layers}
               title="Coluna (Tubo)"
-              desc="Análise crítica de flambagem em perfis tubulares quadrados."
+              desc="Análise crítica de flambagem em perfis tubulares."
               color="text-purple-400"
               bg="bg-purple-500/10"
               border="hover:border-purple-500/50"
@@ -812,7 +812,7 @@ export default function Home() {
             <ModuleCard
               icon={Zap}
               title="Nória (Aéreo)"
-              desc="Transportador aéreo de canecas. Cálculo de corrente e potência."
+              desc="Transportador aéreo. Cálculo de corrente e potência."
               color="text-yellow-400"
               bg="bg-yellow-500/10"
               border="hover:border-yellow-500/50"
@@ -830,7 +830,7 @@ export default function Home() {
             <ModuleCard
               icon={Snowflake}
               title="Câmara Padrão"
-              desc="Balanço térmico completo para dimensionamento de frio."
+              desc="Dimensionamento Estrutural de uma Câmara fria completa."
               color="text-blue-400"
               bg="bg-blue-500/10"
               border="hover:border-blue-500/50"
@@ -838,7 +838,7 @@ export default function Home() {
             <ModuleCard
               icon={Thermometer}
               title="Linhas Frigoríficas"
-              desc="Cálculo de diâmetro e perda de carga em tubulações."
+              desc="Cálculo de linhas que comportam carcaças."
               color="text-blue-400"
               bg="bg-blue-500/10"
               border="hover:border-blue-500/50"
@@ -869,9 +869,7 @@ export default function Home() {
         className={`py-12 text-center text-sm border-t ${darkMode ? "bg-black border-slate-900 text-slate-500" : "bg-slate-50 border-slate-200 text-slate-400"}`}
       >
         <p className="font-mono mb-2">VESTRA ENGINEERING ENVIRONMENT © 2025</p>
-        <p className="text-xs opacity-50">
-          Desenvolvido com ❤️ por Luiz Medeiros.
-        </p>
+        <p className="text-xs opacity-50">Desenvolvido por Luiz Medeiros.</p>
       </footer>
     </div>
   );
