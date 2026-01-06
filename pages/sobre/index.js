@@ -527,14 +527,14 @@ export default function Sobre() {
                   href={profile.cv.eng}
                   className="inline-flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-950/30 px-5 py-3 text-sm font-bold text-slate-200 hover:bg-slate-950/50 hover:border-slate-700 transition"
                 >
-                  <BookOpen className="size-4" /> Baixar CV (Engenharia)
+                  <BookOpen className="size-4" /> Baixar CV (Full Stack)
                 </a>
 
                 <a
                   href={profile.cv.fullstack}
                   className="inline-flex items-center gap-2 rounded-2xl border border-slate-800 bg-slate-950/30 px-5 py-3 text-sm font-bold text-slate-200 hover:bg-slate-950/50 hover:border-slate-700 transition"
                 >
-                  <Terminal className="size-4" /> Baixar CV (Full Stack)
+                  <Terminal className="size-4" /> Baixar CV (Engenharia)
                 </a>
               </div>
             </div>
