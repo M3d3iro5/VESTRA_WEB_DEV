@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import BeamSolver from "../components/beam";
 
 import {
@@ -199,19 +198,43 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            {/* Ícone Vestra - Next.js Image com otimização automática */}
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.2)] flex-shrink-0 relative">
-              <Image
-                src="/brand/256x256.svg"
-                alt="Vestra Logo"
-                width={40}
-                height={40}
-                priority
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  console.error("[VESTRA] ❌ Erro ao carregar logo:", e);
-                }}
-              />
+            {/* Ícone Vestra - SVG inline otimizado (sem requisições externas) */}
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.2)] flex items-center justify-center bg-gradient-to-br from-purple-500/20 to-indigo-500/20">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+              >
+                {/* Treliças em V - design simples e otimizado */}
+                <path
+                  d="M8 16L12 8L16 16"
+                  stroke="#a78bfa"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity="0.9"
+                />
+                <path
+                  d="M16 16L20 8L24 16"
+                  stroke="#a78bfa"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity="0.7"
+                />
+                <line
+                  x1="12"
+                  y1="12"
+                  x2="20"
+                  y2="12"
+                  stroke="#a78bfa"
+                  strokeWidth="1.5"
+                  opacity="0.5"
+                />
+              </svg>
             </div>
 
             {/* Nome + domínio */}
