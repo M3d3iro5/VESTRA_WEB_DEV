@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import BeamSolver from "../components/beam";
@@ -31,9 +31,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-// Recharts (SSR off)
+// Recharts (SSR off, lazy load only when needed)
 const AreaChart = dynamic(() => import("recharts").then((m) => m.AreaChart), {
   ssr: false,
+  loading: () => (
+    <div className="h-[420px] bg-slate-800 rounded animate-pulse" />
+  ),
 });
 const Area = dynamic(() => import("recharts").then((m) => m.Area), {
   ssr: false,
@@ -76,40 +79,62 @@ export default function Home() {
   // Engine (densidade)
   const DENSITY = 8000;
 
-  // Conversões pra cm
-  const H_cm = height / 10;
-  const B_cm = width / 10;
-  const t_cm = thickness / 10;
+  // Memoized calculations para evitar recalcular a cada render
+  const metalCalculations = useMemo(() => {
+    const H_cm = height / 10;
+    const B_cm = width / 10;
+    const t_cm = thickness / 10;
 
-  const AreaSec = B_cm * H_cm - (B_cm - 2 * t_cm) * (H_cm - 2 * t_cm);
+    const AreaSec = B_cm * H_cm - (B_cm - 2 * t_cm) * (H_cm - 2 * t_cm);
 
-  const Ixx =
-    (B_cm * Math.pow(H_cm, 3) -
-      (B_cm - 2 * t_cm) * Math.pow(H_cm - 2 * t_cm, 3)) /
-    12;
+    const Ixx =
+      (B_cm * Math.pow(H_cm, 3) -
+        (B_cm - 2 * t_cm) * Math.pow(H_cm - 2 * t_cm, 3)) /
+      12;
 
-  const Iyy =
-    (H_cm * Math.pow(B_cm, 3) -
-      (H_cm - 2 * t_cm) * Math.pow(B_cm - 2 * t_cm, 3)) /
-    12;
+    const Iyy =
+      (H_cm * Math.pow(B_cm, 3) -
+        (H_cm - 2 * t_cm) * Math.pow(B_cm - 2 * t_cm, 3)) /
+      12;
 
-  const Wxx = Ixx / (H_cm / 2);
-  const Wyy = Iyy / (B_cm / 2);
+    const Wxx = Ixx / (H_cm / 2);
+    const Wyy = Iyy / (B_cm / 2);
 
-  const rxx = Math.sqrt(Ixx / AreaSec);
-  const ryy = Math.sqrt(Iyy / AreaSec);
+    const rxx = Math.sqrt(Ixx / AreaSec);
+    const ryy = Math.sqrt(Iyy / AreaSec);
 
-  const WeightTotal = (AreaSec / 10000) * length * DENSITY;
-  const WeightLinear = WeightTotal / length;
-  const VolumeMat = (AreaSec / 10000) * length;
+    const WeightTotal = (AreaSec / 10000) * length * DENSITY;
+    const WeightLinear = WeightTotal / length;
+    const VolumeMat = (AreaSec / 10000) * length;
 
-  useEffect(() => {
-    generatePigData();
-    if (darkMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [darkMode]);
+    return {
+      AreaSec,
+      Ixx,
+      Iyy,
+      Wxx,
+      Wyy,
+      rxx,
+      ryy,
+      WeightTotal,
+      WeightLinear,
+      VolumeMat,
+    };
+  }, [width, height, thickness, length]);
 
-  const generatePigData = () => {
+  const {
+    AreaSec,
+    Ixx,
+    Iyy,
+    Wxx,
+    Wyy,
+    rxx,
+    ryy,
+    WeightTotal,
+    WeightLinear,
+    VolumeMat,
+  } = metalCalculations;
+
+  const generatePigData = useCallback(() => {
     const data = [];
     const nominalThickness = 12.0;
     for (let i = 0; i <= 20; i++) {
@@ -124,7 +149,13 @@ export default function Home() {
       });
     }
     setPigData(data);
-  };
+  }, []);
+
+  useEffect(() => {
+    generatePigData();
+    if (darkMode) document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
+  }, [darkMode, generatePigData]);
 
   const theme = useMemo(() => {
     return {
@@ -159,6 +190,17 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
+            {/* Ícone visual */}
+            <div
+              className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black ${
+                darkMode
+                  ? "bg-purple-500/20 text-purple-300"
+                  : "bg-purple-100 text-purple-600"
+              }`}
+            >
+              ⚙️
+            </div>
+
             {/* Nome + domínio */}
             <div className="leading-tight">
               <div className="font-extrabold text-lg tracking-tight flex items-center gap-2">
@@ -233,9 +275,9 @@ export default function Home() {
 
       {/* HERO */}
       <header className="pt-40 pb-20 px-6 relative overflow-hidden">
-        {/* background glow */}
+        {/* background glow - reduzido no mobile para performance */}
         <div
-          className={`absolute -top-24 left-1/2 -translate-x-1/2 w-[1100px] h-[520px] rounded-full blur-[150px] opacity-20 pointer-events-none ${
+          className={`absolute -top-24 left-1/2 -translate-x-1/2 w-[1100px] h-[520px] rounded-full blur-[80px] md:blur-[150px] opacity-15 md:opacity-20 pointer-events-none ${
             darkMode ? "bg-purple-600" : "bg-blue-400"
           }`}
         />
