@@ -66,11 +66,24 @@ const ReferenceLine = dynamic(
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState("metalon");
+  const [isMobile, setIsMobile] = useState(false);
 
   // --- PIG ---
   const [pigData, setPigData] = useState([]);
 
   // Debug: Log para monitorar carregamento
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Detectar mobile
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 1024);
+      };
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       console.log("[VESTRA] 🚀 Página carregada com sucesso");
@@ -215,17 +228,43 @@ export default function Home() {
               {/* Fundo gradiente */}
               <rect width="100" height="100" fill="url(#grad)" rx="8" />
               {/* V central com treliças */}
-              <g stroke="#fff" strokeLinecap="round" strokeLinejoin="round" fill="none">
+              <g
+                stroke="#fff"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              >
                 {/* Linha esquerda do V */}
                 <path d="M 25 20 L 50 70" strokeWidth="4" />
                 {/* Linha direita do V */}
                 <path d="M 50 70 L 75 20" strokeWidth="4" />
                 {/* Treliça 1 */}
-                <line x1="28" y1="25" x2="42" y2="55" strokeWidth="2" opacity="0.8" />
+                <line
+                  x1="28"
+                  y1="25"
+                  x2="42"
+                  y2="55"
+                  strokeWidth="2"
+                  opacity="0.8"
+                />
                 {/* Treliça 2 */}
-                <line x1="58" y1="55" x2="72" y2="25" strokeWidth="2" opacity="0.8" />
+                <line
+                  x1="58"
+                  y1="55"
+                  x2="72"
+                  y2="25"
+                  strokeWidth="2"
+                  opacity="0.8"
+                />
                 {/* Treliça 3 */}
-                <line x1="35" y1="35" x2="65" y2="35" strokeWidth="2" opacity="0.6" />
+                <line
+                  x1="35"
+                  y1="35"
+                  x2="65"
+                  y2="35"
+                  strokeWidth="2"
+                  opacity="0.6"
+                />
               </g>
             </svg>
 
@@ -705,85 +744,96 @@ export default function Home() {
                     </div>
 
                     <div className="h-[420px] w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={pigData}>
-                          <defs>
-                            <linearGradient
-                              id="colorPerda"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="1"
-                            >
-                              <stop
-                                offset="5%"
-                                stopColor="#ef4444"
-                                stopOpacity={0.85}
-                              />
-                              <stop
-                                offset="95%"
-                                stopColor="#ef4444"
-                                stopOpacity={0}
-                              />
-                            </linearGradient>
-                          </defs>
+                      {!isMobile ? (
+                        <ResponsiveContainer width="100%" height="100%">
+                          <AreaChart data={pigData}>
+                            <defs>
+                              <linearGradient
+                                id="colorPerda"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1"
+                              >
+                                <stop
+                                  offset="5%"
+                                  stopColor="#ef4444"
+                                  stopOpacity={0.85}
+                                />
+                                <stop
+                                  offset="95%"
+                                  stopColor="#ef4444"
+                                  stopOpacity={0}
+                                />
+                              </linearGradient>
+                            </defs>
 
-                          <CartesianGrid
-                            strokeDasharray="3 3"
-                            opacity={0.1}
-                            vertical={false}
-                          />
-                          <XAxis
-                            dataKey="km"
-                            stroke="#64748b"
-                            tick={{ fontSize: 12 }}
-                          />
-                          <YAxis
-                            stroke="#64748b"
-                            tick={{ fontSize: 12 }}
-                            unit="mm"
-                            domain={[0, 15]}
-                          />
+                            <CartesianGrid
+                              strokeDasharray="3 3"
+                              opacity={0.1}
+                              vertical={false}
+                            />
+                            <XAxis
+                              dataKey="km"
+                              stroke="#64748b"
+                              tick={{ fontSize: 12 }}
+                            />
+                            <YAxis
+                              stroke="#64748b"
+                              tick={{ fontSize: 12 }}
+                              unit="mm"
+                              domain={[0, 15]}
+                            />
 
-                          <Tooltip
-                            contentStyle={{
-                              backgroundColor: "#000",
-                              border: "1px solid #333",
-                              fontSize: "12px",
-                              borderRadius: "10px",
-                            }}
-                          />
+                            <Tooltip
+                              contentStyle={{
+                                backgroundColor: "#000",
+                                border: "1px solid #333",
+                                fontSize: "12px",
+                                borderRadius: "10px",
+                              }}
+                            />
 
-                          <ReferenceLine
-                            y={4}
-                            stroke="red"
-                            strokeDasharray="3 3"
-                            label={{
-                              position: "top",
-                              value: "Crítico",
-                              fill: "red",
-                              fontSize: 10,
-                            }}
-                          />
+                            <ReferenceLine
+                              y={4}
+                              stroke="red"
+                              strokeDasharray="3 3"
+                              label={{
+                                position: "top",
+                                value: "Crítico",
+                                fill: "red",
+                                fontSize: 10,
+                              }}
+                            />
 
-                          <Area
-                            type="monotone"
-                            dataKey="espessura"
-                            stackId="1"
-                            stroke="#3b82f6"
-                            fill="#1e3a8a"
-                            name="Parede"
-                          />
-                          <Area
-                            type="monotone"
-                            dataKey="perda"
-                            stackId="2"
-                            stroke="#ef4444"
-                            fill="url(#colorPerda)"
-                            name="Corrosão"
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
+                            <Area
+                              type="monotone"
+                              dataKey="espessura"
+                              stackId="1"
+                              stroke="#3b82f6"
+                              fill="#1e3a8a"
+                              name="Parede"
+                            />
+                            <Area
+                              type="monotone"
+                              dataKey="perda"
+                              stackId="2"
+                              stroke="#ef4444"
+                              fill="url(#colorPerda)"
+                              name="Corrosão"
+                            />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-slate-800 rounded">
+                          <div className="text-center">
+                            <div className="text-sm opacity-70 mb-2">
+                              Gráfico disponível em desktop
+                            </div>
+                            <div className="text-2xl">📊</div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
