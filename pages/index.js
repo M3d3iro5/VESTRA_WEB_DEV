@@ -209,14 +209,23 @@ export default function Home() {
         className={`fixed w-full z-50 border-b backdrop-blur-xl transition-colors duration-500 ${theme.nav}`}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-          {/* Brand - Texto puro, sem SVG, sem requisições */}
-          <div className="font-bold text-lg tracking-tight">
-            VESTRA
-            <span
-              className={`ml-1 ${darkMode ? "text-purple-400" : "text-purple-600"}`}
-            >
-              .ENG
-            </span>
+          {/* Brand - Icon + Texto */}
+          <div className="flex items-center gap-2">
+            <img
+              src="/brand/Vestra_icon.png"
+              alt="VESTRA"
+              width="40"
+              height="40"
+              className="rounded-lg"
+            />
+            <div className="font-bold text-lg tracking-tight">
+              VESTRA
+              <span
+                className={`ml-1 ${darkMode ? "text-purple-400" : "text-purple-600"}`}
+              >
+                .ENG
+              </span>
+            </div>
           </div>
 
           {/* Nav links */}
@@ -273,6 +282,17 @@ export default function Home() {
         />
 
         <div className="relative z-10 max-w-6xl mx-auto text-center">
+          {/* Hero Icon */}
+          <div className="mb-8 flex justify-center">
+            <img
+              src="/brand/Vestra_icon.png"
+              alt="VESTRA Icon"
+              width="80"
+              height="80"
+              className="rounded-xl shadow-lg"
+            />
+          </div>
+
           <div
             className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-8 border ${theme.pill}`}
           >
