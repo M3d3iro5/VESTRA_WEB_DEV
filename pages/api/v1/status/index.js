@@ -2,15 +2,6 @@ import database from "infra/database.js";
 import { version } from "react";
 
 async function status(request, response) {
-  // Cache-Control: s-maxage=10 para Vercel ISR
-  // public: cacheable em CDN
-  // s-maxage=10: Vercel Server Store por 10 segundos
-  // stale-while-revalidate=59: Serve stale content enquanto revalida
-  response.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59",
-  );
-
   const updatedAt = new Date().toISOString();
 
   const dataBaseVersionReulst = await database.query("SHOW server_version;");
