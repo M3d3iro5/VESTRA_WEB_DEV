@@ -198,84 +198,34 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            {/* Logo Vestra - SVG puro sem requisições HTTP */}
+            {/* Logo Vestra - SVG otimizado, sem requisições */}
             <svg
               width="40"
               height="40"
-              viewBox="0 0 256 256"
-              fill="none"
+              viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
-              className="rounded-xl shadow-[0_0_15px_rgba(168,85,247,0.2)]"
+              className="rounded-lg shadow-lg"
             >
-              {/* Fundo */}
-              <rect width="256" height="256" fill="#0f172a" />
-
-              {/* Letra V com treliças */}
               <defs>
-                <linearGradient
-                  id="vGradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop
-                    offset="0%"
-                    style={{ stopColor: "#a855f7", stopOpacity: 1 }}
-                  />
-                  <stop
-                    offset="100%"
-                    style={{ stopColor: "#06b6d4", stopOpacity: 1 }}
-                  />
+                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#a855f7" />
+                  <stop offset="100%" stopColor="#0891b2" />
                 </linearGradient>
               </defs>
-
-              {/* V shape com linhas de treliça */}
-              <g transform="translate(30, 30) scale(1.5)">
+              {/* Fundo gradiente */}
+              <rect width="100" height="100" fill="url(#grad)" rx="8" />
+              {/* V central com treliças */}
+              <g stroke="#fff" strokeLinecap="round" strokeLinejoin="round" fill="none">
                 {/* Linha esquerda do V */}
-                <line
-                  x1="20"
-                  y1="10"
-                  x2="40"
-                  y2="60"
-                  stroke="url(#vGradient)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
+                <path d="M 25 20 L 50 70" strokeWidth="4" />
                 {/* Linha direita do V */}
-                <line
-                  x1="40"
-                  y1="10"
-                  x2="20"
-                  y2="60"
-                  stroke="url(#vGradient)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-                {/* Treliça diagonal 1 */}
-                <line
-                  x1="22"
-                  y1="20"
-                  x2="38"
-                  y2="50"
-                  stroke="url(#vGradient)"
-                  strokeWidth="1.5"
-                  opacity="0.7"
-                  strokeLinecap="round"
-                />
-                {/* Treliça diagonal 2 */}
-                <line
-                  x1="38"
-                  y1="20"
-                  x2="22"
-                  y2="50"
-                  stroke="url(#vGradient)"
-                  strokeWidth="1.5"
-                  opacity="0.7"
-                  strokeLinecap="round"
-                />
-                {/* Ponto central */}
-                <circle cx="30" cy="55" r="2.5" fill="url(#vGradient)" />
+                <path d="M 50 70 L 75 20" strokeWidth="4" />
+                {/* Treliça 1 */}
+                <line x1="28" y1="25" x2="42" y2="55" strokeWidth="2" opacity="0.8" />
+                {/* Treliça 2 */}
+                <line x1="58" y1="55" x2="72" y2="25" strokeWidth="2" opacity="0.8" />
+                {/* Treliça 3 */}
+                <line x1="35" y1="35" x2="65" y2="35" strokeWidth="2" opacity="0.6" />
               </g>
             </svg>
 
