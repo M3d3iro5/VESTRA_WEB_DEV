@@ -3,7 +3,13 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import BeamSolver from "../components/beam";
+
+const BeamSolver = dynamic(() => import("../components/beam"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-screen bg-slate-900 rounded animate-pulse" />
+  ),
+});
 
 import {
   Moon,
