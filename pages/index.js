@@ -159,15 +159,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            {/* Logo */}
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_25px_rgba(168,85,247,0.25)]">
-              <img
-                src="/brand/256x256.svg"
-                alt="Vestra"
-                className="w-full h-full object-contain"
-              />
-            </div>
-
             {/* Nome + domínio */}
             <div className="leading-tight">
               <div className="font-extrabold text-lg tracking-tight flex items-center gap-2">
