@@ -67,6 +67,7 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState("metalon");
   const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
 
   // --- PIG ---
   const [pigData, setPigData] = useState([]);
@@ -172,6 +173,17 @@ export default function Home() {
     setPigData(data);
   }, []);
 
+  // Navegação suave com transição
+  const handleSmoothScroll = useCallback((targetId) => {
+    setActiveSection(targetId);
+    const element = document.getElementById(targetId);
+    if (element) {
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
+  }, []);
+
   useEffect(() => {
     generatePigData();
     if (darkMode) document.documentElement.classList.add("dark");
@@ -233,18 +245,24 @@ export default function Home() {
 
           {/* Nav links */}
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold">
-            <a href="#simulador" className={`transition ${theme.link}`}>
+            <button
+              onClick={() => handleSmoothScroll("simulador")}
+              className={`transition cursor-pointer ${theme.link}`}
+            >
               Simulador
-            </a>
-            <a
-              href="#ai"
-              className={`transition flex items-center gap-1 ${theme.link}`}
+            </button>
+            <button
+              onClick={() => handleSmoothScroll("ai")}
+              className={`transition flex items-center gap-1 cursor-pointer ${theme.link}`}
             >
               <Bot size={14} /> Vestra AI
-            </a>
-            <a href="#modulos" className={`transition ${theme.link}`}>
+            </button>
+            <button
+              onClick={() => handleSmoothScroll("modulos")}
+              className={`transition cursor-pointer ${theme.link}`}
+            >
               Módulos
-            </a>
+            </button>
           </div>
 
           {/* Actions */}
@@ -330,26 +348,26 @@ export default function Home() {
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/sobre"
-              className={`px-8 py-4 rounded-2xl font-extrabold text-lg transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 ${
+              className={`px-8 py-4 rounded-2xl font-extrabold text-lg transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 hover:shadow-lg ${
                 darkMode
-                  ? "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20"
-                  : "bg-slate-900 text-white hover:bg-slate-800"
+                  ? "bg-purple-600 hover:bg-purple-500 text-white shadow-lg shadow-purple-900/20 hover:shadow-purple-600/30"
+                  : "bg-slate-900 text-white hover:bg-slate-800 hover:shadow-slate-900/30"
               }`}
             >
               <User size={18} /> Conheça o Engenheiro
               <ChevronRight size={18} className="opacity-80" />
             </Link>
 
-            <a
-              href="#simulador"
-              className={`px-8 py-4 rounded-2xl font-extrabold text-lg border transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 ${
+            <button
+              onClick={() => handleSmoothScroll("simulador")}
+              className={`px-8 py-4 rounded-2xl font-extrabold text-lg border transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer ${
                 darkMode
                   ? "border-slate-800 bg-[#0f111a] hover:border-purple-500/50"
                   : "border-slate-300 bg-white hover:bg-slate-50"
               }`}
             >
               <Cpu size={18} /> Abrir Simulador
-            </a>
+            </button>
           </div>
 
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto">
@@ -373,7 +391,12 @@ export default function Home() {
       </header>
 
       {/* SIMULADOR */}
-      <section id="simulador" className="px-4 py-12">
+      <section
+        id="simulador"
+        className={`px-4 py-12 transition-all duration-500 ${
+          activeSection === "simulador" ? "animate-slide-up" : ""
+        }`}
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-black mb-3 flex items-center justify-center gap-2">
@@ -878,7 +901,9 @@ export default function Home() {
       {/* VESTRA AI */}
       <section
         id="ai"
-        className={`py-24 border-y ${
+        className={`py-24 border-y transition-all duration-500 ${
+          activeSection === "ai" ? "animate-slide-in-right" : ""
+        } ${
           darkMode
             ? "bg-slate-900/30 border-slate-900"
             : "bg-white border-slate-200"
@@ -978,7 +1003,9 @@ export default function Home() {
       {/* MÓDULOS */}
       <section
         id="modulos"
-        className={`py-24 border-t ${
+        className={`py-24 border-t transition-all duration-500 ${
+          activeSection === "modulos" ? "animate-slide-in-left" : ""
+        } ${
           darkMode
             ? "bg-[#060606] border-slate-900"
             : "bg-slate-50 border-slate-200"
