@@ -6,12 +6,6 @@ export default function Document() {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
-        <link
-          rel="preload"
-          href="/brand/256x256.svg"
-          as="image"
-          type="image/svg+xml"
-        />
         <meta name="theme-color" content="#070707" />
         {/* Previne flash de tela preta durante carregamento */}
         <style
