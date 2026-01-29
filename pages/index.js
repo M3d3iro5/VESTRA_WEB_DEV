@@ -211,13 +211,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand - Icon + Texto */}
           <div className="flex items-center gap-2">
-            <img
-              src="/brand/Vestra_icon.png"
-              alt="VESTRA"
-              width="40"
-              height="40"
-              className="rounded-lg"
-            />
+            <picture>
+              <source srcSet="/brand/icon.webp" type="image/webp" />
+              <img
+                src="/brand/icon.png"
+                alt="VESTRA"
+                width="40"
+                height="40"
+                className="rounded-lg"
+              />
+            </picture>
             <div className="font-bold text-lg tracking-tight">
               VESTRA
               <span
@@ -284,13 +287,16 @@ export default function Home() {
         <div className="relative z-10 max-w-6xl mx-auto text-center">
           {/* Hero Icon */}
           <div className="mb-8 flex justify-center">
-            <img
-              src="/brand/Vestra_icon.png"
-              alt="VESTRA Icon"
-              width="80"
-              height="80"
-              className="rounded-xl shadow-lg"
-            />
+            <picture>
+              <source srcSet="/brand/icon.webp" type="image/webp" />
+              <img
+                src="/brand/icon.png"
+                alt="VESTRA Icon"
+                width="80"
+                height="80"
+                className="rounded-xl shadow-lg"
+              />
+            </picture>
           </div>
 
           <div
