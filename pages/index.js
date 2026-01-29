@@ -190,15 +190,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            {/* Ícone visual */}
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black ${
-                darkMode
-                  ? "bg-purple-500/20 text-purple-300"
-                  : "bg-purple-100 text-purple-600"
-              }`}
-            >
-              ⚙️
+            {/* Ícone SVG Vestra */}
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+              <img
+                src="/brand/256x256.svg"
+                alt="Vestra"
+                className="w-full h-full object-contain"
+                loading="eager"
+              />
             </div>
 
             {/* Nome + domínio */}
