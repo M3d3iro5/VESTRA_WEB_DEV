@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import BeamSolver from "../components/beam";
 
 import {
@@ -198,29 +199,19 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            {/* Ícone SVG Vestra - Treliças em V (inline) */}
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.2)] flex items-center justify-center bg-gradient-to-br from-purple-500/10 to-indigo-500/10">
-              <svg
-                viewBox="0 0 100 100"
-                width="24"
-                height="24"
-                className="text-purple-400"
-                fill="currentColor"
-              >
-                {/* Treliças em V - design geométrico */}
-                <polygon points="20,80 30,20 40,80" opacity="0.8" />
-                <polygon points="60,80 70,20 80,80" opacity="0.8" />
-                <line
-                  x1="35"
-                  y1="50"
-                  x2="65"
-                  y2="50"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                  opacity="0.6"
-                />
-                <circle cx="50" cy="50" r="8" opacity="0.4" />
-              </svg>
+            {/* Ícone Vestra - Next.js Image com otimização automática */}
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.2)] flex-shrink-0 relative">
+              <Image
+                src="/brand/256x256.svg"
+                alt="Vestra Logo"
+                width={40}
+                height={40}
+                priority
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  console.error("[VESTRA] ❌ Erro ao carregar logo:", e);
+                }}
+              />
             </div>
 
             {/* Nome + domínio */}
